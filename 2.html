@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="jquery-1.8.2.min.js"></script>
+<script src="jQueryRotate.2.2.js"></script>
+<script src="jquery.easing.min.js"></script>
+<title>无标题文档</title>
+<script>
+//$(document).ready(function(){
+//	//var u = Math.floor((m_x-8)/400 *100);
+//	var rotation2 = function (){
+//   $("#imga").rotate({
+//      angle:0, 
+//      animateTo:360, 
+//      callback: rotation2,
+//      easing: function (x,t,b,c,d){
+//          return (c*(t/d)+b)*33;
+//      }
+//   });
+//}
+//rotation2();
+//   });
+// </script>
+</head>
+<body>
+<img id="imga" src="Benham's_Disc.svg" alt="Benham's_Disc">
+<style>
+.d_b{
+    height: 20px;
+    width: 10px;
+    display: inline-block;
+    background-color: black;
+    position: relative;
+    vertical-align: middle;
+    top: -15px;
+    left: -5px;
+}
+</style>
+<div id="d" style="width:400px;cursor: pointer;" max=100 min=0 value=10 >
+  <div style="height:10px; width:100%; background-color:green" ></div>
+<b class="d_b"></b>
+</div>
+<b id="text"></b>
+<script>
+var $dom = $(document);
+$dom.on('mousedown','#d',function (argument) {
+    $(this).data('mouse','down');
+    console.log('down');
+})
+$dom.on('mouseup',function(){
+    $('#d').data('mouse','up');
+    console.log('up');
+});
+var flag=0;
+var flagb=1;
+$dom.on('mousemove','#d',function(event){
+    if($(this).data('mouse') == 'down'){
+        var m_x = event.clientX;   
+        var d_b = $(this).find('.d_b');
+         m_x = m_x < 8 ? 8 : m_x;
+         m_x = m_x > 408 ? 408: m_x;
+        d_b.css('left',m_x-13);
+        var max = $(this).attr('max');
+        $(this).attr('value', Math.floor((m_x-8)/400 * max))
+        console.log($(this).attr('value'));
+        $('#text').text($(this).attr('value'))
+ // 
+ $(document).ready(function(){
+	var y;
+	var u = Math.floor((m_x-8)/400 *100);
+	var rotation2 = function (){
+   $("#imga").rotate({
+      angle:0, 
+      animateTo:360, 
+      callback: rotation2,
+      easing: function (x,t,b,c,d){
+		  if(u>0&&u<20)
+          return u+t;
+		  if(u>=20)
+		  return u*t/20;
+		  return  (c*(t/d)+b)*u;
+      }
+   });
+}
+rotation2();
+   });    
+ 
+    //  var timer1 = setInterval(function(){}, 20);
+    // flag=flag+1;
+	 //if(flag>flagb)
+	 //{clearInterval( timer1 );
+		// flagb=flag;
+		 //}
+
+ //	 var zhuanpan=$("#imga");//img图片标签
+//     var angle=0;
+//     setInterval(function(){
+//	 var u = Math.floor((m_x-8)/400 *100);
+//	 angle +=u;
+//     zhuanpan.rotate(angle);
+//}, 50)
+	}
+});
+
+</script>
+<span></span>
+</body>
+</html>
